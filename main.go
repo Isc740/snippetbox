@@ -8,6 +8,7 @@ import (
 )
 
 func getHome(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Home", "Go")
 	w.Write([]byte("Hello from snippetbox"))
 }
 
@@ -18,8 +19,7 @@ func GetSnippetView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	msg := fmt.Sprintf("Display specific snippet with id %d...", id)
-	w.Write([]byte(msg))
+	fmt.Fprintf(w, "Display specific snippet with id %d...", id)
 }
 
 func GetSnippetCreate(w http.ResponseWriter, r *http.Request) {
@@ -27,6 +27,7 @@ func GetSnippetCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostSnippetCreate(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte("Create new snippet..."))
 }
 
