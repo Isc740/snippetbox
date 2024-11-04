@@ -18,6 +18,7 @@ func homeGet(w http.ResponseWriter, r *http.Request) {
 	}
 
 	tmpl, err := template.ParseFiles(files...)
+
 	if err != nil {
 		log.Println(err.Error())
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
@@ -25,6 +26,7 @@ func homeGet(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = tmpl.ExecuteTemplate(w, "base", nil)
+
 	if err != nil {
 		log.Println(err.Error())
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
