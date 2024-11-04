@@ -8,10 +8,10 @@ import (
 func main() {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("GET /{$}", getHome)
-	mux.HandleFunc("GET /snippet/view/{id}", GetSnippetView)
-	mux.HandleFunc("GET /snippet/create", GetSnippetCreate)
-	mux.HandleFunc("POST /snippet/create", PostSnippetCreate)
+	mux.HandleFunc("GET /{$}", homeGet)
+	mux.HandleFunc("GET /snippet/view/{id}", snippetViewGet)
+	mux.HandleFunc("GET /snippet/create", snippetCreateGet)
+	mux.HandleFunc("POST /snippet/create", snippetCreatePost)
 
 	log.Print("Starting server on :4000")
 
