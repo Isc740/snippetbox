@@ -1,11 +1,15 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/http"
 )
 
 func main() {
+	addr := flag.String("addr", ":4000", "HTTP Network Access")
+	flag.Parse()
+
 	router := http.NewServeMux()
 	fileServer := http.FileServer(http.Dir("./ui/static/"))
 
@@ -16,8 +20,8 @@ func main() {
 	router.HandleFunc("GET /snippet/create", snippetCreateGet)
 	router.HandleFunc("POST /snippet/create", snippetCreatePost)
 
-	log.Print("Starting server on :4000")
+	log.Printf("Starting server on %s", *addr)
 
-	err := http.ListenAndServe(":4000", router)
+	err := http.ListenAndServe(*addr, router)
 	log.Fatal(err)
 }
