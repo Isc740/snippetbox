@@ -7,11 +7,11 @@ import (
 	"strconv"
 )
 
-func home(w http.ResponseWriter, r *http.Request) {
+func getHome(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Hello from snippetbox"))
 }
 
-func snippetView(w http.ResponseWriter, r *http.Request) {
+func GetSnippetView(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil || id < 1 {
 		http.NotFound(w, r)
@@ -22,21 +22,21 @@ func snippetView(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(msg))
 }
 
-func snippetCreate(w http.ResponseWriter, r *http.Request) {
+func GetSnippetCreate(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Display a form for creating a new snippet..."))
 }
 
-func snippetCreatePost(w http.ResponseWriter, r *http.Request) {
+func PostSnippetCreate(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Create new snippet..."))
 }
 
 func main() {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("GET /{$}", home)
-	mux.HandleFunc("GET /snippet/view/{id}", snippetView)
-	mux.HandleFunc("GET /snippet/create", snippetCreate)
-	mux.HandleFunc("POST /snippet/create", snippetCreatePost)
+	mux.HandleFunc("GET /{$}", getHome)
+	mux.HandleFunc("GET /snippet/view/{id}", GetSnippetView)
+	mux.HandleFunc("GET /snippet/create", GetSnippetCreate)
+	mux.HandleFunc("POST /snippet/create", PostSnippetCreate)
 
 	log.Print("Starting server on :4000")
 
