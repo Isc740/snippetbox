@@ -2,13 +2,29 @@ package main
 
 import (
 	"fmt"
+	"html/template"
+	"log"
 	"net/http"
 	"strconv"
 )
 
 func getHome(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Home", "Go")
-	w.Write([]byte("Hello from snippetbox"))
+
+	tmpl, err := template.ParseFiles("./ui/html/pages/home.tmpl.html")
+
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.Execute(w, nil)
+
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
 }
 
 func GetSnippetView(w http.ResponseWriter, r *http.Request) {
