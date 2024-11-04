@@ -11,7 +11,11 @@ import (
 func getHome(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Home", "Go")
 
-	tmpl, err := template.ParseFiles("./ui/html/pages/home.tmpl.html")
+	files := []string{
+		"./ui/html/pages/base.tmpl.html",
+		"./ui/html/pages/home.tmpl.html",
+	}
+	tmpl, err := template.ParseFiles(files...)
 
 	if err != nil {
 		log.Println(err.Error())
@@ -19,7 +23,7 @@ func getHome(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = tmpl.Execute(w, nil)
+	err = tmpl.ExecuteTemplate(w, "base", nil)
 
 	if err != nil {
 		log.Println(err.Error())
