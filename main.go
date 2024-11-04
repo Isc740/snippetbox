@@ -6,15 +6,15 @@ import (
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello world!\n"))
+	w.Write([]byte("Hello from snippetbox\n"))
 }
 
 func snippetView(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Display a specific snippet"))
+	w.Write([]byte("Display a specific snippet..."))
 }
 
 func snippetCreate(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Display a form for creating a new snippet"))
+	w.Write([]byte("Display a form for creating a new snippet..."))
 }
 
 func main() {
