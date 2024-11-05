@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-func (app *application) homeGet(w http.ResponseWriter, r *http.Request) {
+func (app *application) getHome(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Home", "Go")
 
 	files := []string{
@@ -28,21 +28,21 @@ func (app *application) homeGet(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (app *application) snippetViewGet(w http.ResponseWriter, r *http.Request) {
+func (app *application) getSnippetView(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil || id < 1 {
 		http.NotFound(w, r)
 		return
 	}
 
-	fmt.Fprintf(w, "Display specific snippet with id %d...", id)
+	fmt.Fprintf(w, "Display specific snippet with id %d...\n", id)
 }
 
-func (app *application) snippetCreateGet(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Display a form for creating a new snippet..."))
+func (app *application) getSnippetCreate(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Display a form for creating a new snippet...\n"))
 }
 
-func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request) {
+func (app *application) PostSnippetCreate(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte("Create new snippet..."))
+	w.Write([]byte("Create new snippet...\n"))
 }

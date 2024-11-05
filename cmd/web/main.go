@@ -16,13 +16,11 @@ func main() {
 	flag.Parse()
 
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
-
 	app := &application{
 		logger: logger,
 	}
 
 	logger.Info("Starting server", "addr", *addr)
-
 	err := http.ListenAndServe(*addr, app.routes())
 
 	logger.Error(err.Error())
