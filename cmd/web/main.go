@@ -21,19 +21,9 @@ func main() {
 		logger: logger,
 	}
 
-	router := http.NewServeMux()
-	fileServer := http.FileServer(neuteredFileSystem{http.Dir("./ui/static/")})
-
-	router.Handle("GET /static/", http.StripPrefix("/static", fileServer))
-
-	router.HandleFunc("GET /{$}", app.homeGet)
-	router.HandleFunc("GET /snippet/view/{id}", app.snippetViewGet)
-	router.HandleFunc("GET /snippet/create", app.snippetCreateGet)
-	router.HandleFunc("POST /snippet/create", app.snippetCreatePost)
-
 	logger.Info("Starting server", "addr", *addr)
 
-	err := http.ListenAndServe(*addr, router)
+	err := http.ListenAndServe(*addr, app.routes())
 
 	logger.Error(err.Error())
 	os.Exit(1)
